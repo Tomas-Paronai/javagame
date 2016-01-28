@@ -5,6 +5,10 @@
  */
 package javagame.lib.handlers.entity;
 
+import org.newdawn.slick.Animation;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+
 
 
 /**
@@ -13,4 +17,16 @@ package javagame.lib.handlers.entity;
  */
 public interface Animated {
     public abstract void update();
+    public void setPosition(int x, int y);
+    public int getX();
+    public int getY();
+    static void render(Animation anim, Image img, Graphics g, int x, int y)
+    {
+        if(anim != null){            
+            g.drawAnimation(anim,(float) x,(float) y);
+        }
+        else if(img != null){
+            g.drawImage(img,(float) x,(float) y);
+        }
+    }
 }

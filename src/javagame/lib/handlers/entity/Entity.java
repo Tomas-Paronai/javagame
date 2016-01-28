@@ -5,10 +5,11 @@
  */
 package javagame.lib.handlers.entity;
 
+import javagame.lib.handlers.Game;
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SpriteSheet;
 
 /**
  *
@@ -18,6 +19,7 @@ public abstract class Entity{
     
     private String entityName;
     private Animation animation;
+    private Game game;
     private Image img;
     
     public Entity(String name){
@@ -28,18 +30,10 @@ public abstract class Entity{
     public void init() {
         
     }    
-
-    public void render(GameContainer gc, Graphics g) {
-        if(animation != null){
-            //TODO draw animation
-        }
-        else if(img != null){
-            //TODO draw image
-        }
-    }
     
-    public void setAnimation(Animation anim){
-        animation = anim;
+    public void setAnimation(Image image, int w, int h){
+        SpriteSheet sprite = new SpriteSheet(image, w, h);
+        animation = new Animation(sprite, 100);
     }
     
     public Animation getAnimation(){
@@ -62,4 +56,11 @@ public abstract class Entity{
         return entityName;
     }
     
+    public void setGameWorld(Game game){
+        this.game = game;
+    }    
+    
+    public Input getInput(){
+        return game.getContainer().getInput();
+    }
 }
