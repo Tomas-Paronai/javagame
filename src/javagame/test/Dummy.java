@@ -21,14 +21,15 @@ public class Dummy extends Entity implements Animated,Moveable{
     
     public Dummy(String name) {
         super(name);
-        setImage("res/img.png");
-        setPosition(0,50);
+        setImage("res/runner.png");
+        setAnimation("res/runner.png",64,64);
+        setPosition(100,50);
+        
     }
 
     @Override
     public void update() {
         move(getInput());
-        
     }
 
     @Override
@@ -49,7 +50,7 @@ public class Dummy extends Entity implements Animated,Moveable{
 
     @Override
     public void move(Input input) {
-       // System.out.println("Dummy");
+       
     }
 
     @Override

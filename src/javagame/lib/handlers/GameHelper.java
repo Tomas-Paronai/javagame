@@ -21,4 +21,8 @@ public class GameHelper {
     public void addObject(Object object){
         newImports.add(object);
     }
+    
+    public void message(String msg){
+        newImports.add(new Message(msg));
+    }
 }

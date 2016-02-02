@@ -49,12 +49,10 @@ public class Game  extends BasicGame{
     public void update(GameContainer gc, int i) throws SlickException {  
         checkForImports();
         if(actingObjects != null){
-            //System.out.println(actingObjects.size());
             for(Object obj : actingObjects){
                 if(obj instanceof Animated){                    
                     Animated animObj = (Animated) obj;
                     animObj.update();
-                    //System.out.println(animObj.getClass());
                 }
             }
         }
@@ -84,7 +82,11 @@ public class Game  extends BasicGame{
          for(Object obj : actingObjects){
             if(obj instanceof Entity && obj instanceof Animated){
                 Entity ent = (Entity) obj;
-                Animated.render(null, ent.getImage(), grphcs, ent.getX(), ent.getY());
+                Animated.render(ent.getAnimation(), ent.getImage(), grphcs, ent.getX(), ent.getY());
+            }
+            else if(obj instanceof Message){
+                Message msg = (Message) obj;
+                msg.render(grphcs);
             }
         }
     }
@@ -107,5 +109,9 @@ public class Game  extends BasicGame{
     
     public GameContainer getContainer(){
         return gc;
+    }
+    
+    public GameHelper getHelper(){
+        return helper;
     }
 }

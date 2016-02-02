@@ -16,7 +16,7 @@ import org.newdawn.slick.Image;
  * @author tomas
  */
 public interface Animated {
-    public abstract void update();
+    public void update();
     public void setPosition(int x, int y);
     public int getX();
     public int getY();
