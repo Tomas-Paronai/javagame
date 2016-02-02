@@ -5,6 +5,8 @@
         <group>
             <file>file:/C:/Users/tomas/Documents/NetBeansProjects/JavaGame/src/javagame/test/Dummy.java</file>
             <file>file:/C:/Users/tomas/Documents/NetBeansProjects/JavaGame/src/javagame/lib/handlers/Game.java</file>
+            <file>file:/C:/Users/tomas/Documents/NetBeansProjects/JavaGame/src/javagame/lib/handlers/entity/Entity.java</file>
+            <file>file:/C:/Users/tomas/Documents/NetBeansProjects/JavaGame/src/javagame/lib/handlers/entity/Moveable.java</file>
         </group>
     </open-files>
 </project-private>

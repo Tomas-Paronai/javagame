@@ -22,18 +22,18 @@ public class Game  extends BasicGame{
     
     private ArrayList<Object> actingObjects;
     private AppGameContainer appgc;
+    protected GameHelper helper;
     private GameContainer gc;
     
-    public Game(String title) {
+    public Game(String title, GameHelper helper) {
         super(title);
+        this.helper = helper;
         try{            
             appgc = new AppGameContainer(this);
             appgc.setDisplayMode(800, 640, false);
             appgc.setSmoothDeltas(true);
             appgc.setTargetFrameRate(60); 
-            
-            actingObjects = new ArrayList<>();
-            
+            appgc.start();                     
         }
         catch (SlickException ex){
         }
@@ -42,31 +42,51 @@ public class Game  extends BasicGame{
     @Override
     public void init(GameContainer gc) throws SlickException {
         this.gc = gc;
+        actingObjects = new ArrayList<>();
     }
 
     @Override
-    public void update(GameContainer gc, int i) throws SlickException {        
+    public void update(GameContainer gc, int i) throws SlickException {  
+        checkForImports();
         if(actingObjects != null){
-            for(Object object : actingObjects){
-                if(object instanceof Animated){
-                    Animated anObj = (Animated) object;
-                    anObj.update();
-                }                
-            }
-        }        
-    }
-
-    @Override
-    public void render(GameContainer gc, Graphics grphcs) throws SlickException {
-        if(actingObjects != null){
-            for (Object object : actingObjects) {
-                if(object instanceof Entity && object instanceof Animated){
-                    Entity enObj = (Entity) object;                    
-                    Animated anObj = (Animated) enObj;
-                    Animated.render(enObj.getAnimation(), enObj.getImage(), grphcs, anObj.getX(), anObj.getY());
+            //System.out.println(actingObjects.size());
+            for(Object obj : actingObjects){
+                if(obj instanceof Animated){                    
+                    Animated animObj = (Animated) obj;
+                    animObj.update();
+                    //System.out.println(animObj.getClass());
                 }
             }
-        }   
+        }
+    }
+    
+    private void checkForImports(){
+        if(helper.newImports != null && helper.newImports.size() > 0){
+            for(Object obj : helper.newImports){
+                addEntity(obj);
+            }
+            helper.newImports.clear();
+            chechQueue();
+        }        
+    }
+    
+    private void chechQueue(){
+        for(Object obj : actingObjects){
+            if(obj instanceof Entity){
+                Entity ent = (Entity) obj;
+                ent.loadGraphics();
+            }
+        }
+    }
+    
+    @Override
+    public void render(GameContainer gc, Graphics grphcs) throws SlickException {        
+         for(Object obj : actingObjects){
+            if(obj instanceof Entity && obj instanceof Animated){
+                Entity ent = (Entity) obj;
+                Animated.render(null, ent.getImage(), grphcs, ent.getX(), ent.getY());
+            }
+        }
     }
     
     public void start(){
@@ -76,8 +96,9 @@ public class Game  extends BasicGame{
         }
     }
     
-    public void addEntity(Object actor){
+    private void addEntity(Object actor){
         if(actor instanceof Entity){
+            
             Entity enObj = (Entity) actor;
             enObj.setGameWorld(this);
         }

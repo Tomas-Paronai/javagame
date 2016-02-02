@@ -5,10 +5,14 @@
  */
 package javagame.lib.handlers.entity;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javagame.lib.handlers.Game;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 /**
@@ -19,7 +23,9 @@ public abstract class Entity{
     
     private String entityName;
     private Animation animation;
+    private int x,y;
     private Game game;
+    private String imgPath;
     private Image img;
     
     public Entity(String name){
@@ -30,6 +36,20 @@ public abstract class Entity{
     public void init() {
         
     }    
+    
+    public void render(Graphics g){
+        
+    }
+    
+    public void loadGraphics(){
+        if(imgPath != null){
+            try {
+                img = new Image(imgPath);
+            } catch (SlickException ex) {
+                Logger.getLogger(Entity.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     
     public void setAnimation(Image image, int w, int h){
         SpriteSheet sprite = new SpriteSheet(image, w, h);
@@ -42,6 +62,10 @@ public abstract class Entity{
     
     public void setImage(Image image){
         img = image;
+    }
+    
+    public void setImage(String path){
+        imgPath = path;
     }
     
     public Image getImage(){
@@ -62,5 +86,19 @@ public abstract class Entity{
     
     public Input getInput(){
         return game.getContainer().getInput();
+    }
+    
+
+    public int getX() {
+        return x;
+    }
+    
+    public void setPosition(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getY() {
+        return y;
     }
 }

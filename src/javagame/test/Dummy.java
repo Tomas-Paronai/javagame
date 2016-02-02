@@ -21,6 +21,8 @@ public class Dummy extends Entity implements Animated,Moveable{
     
     public Dummy(String name) {
         super(name);
+        setImage("res/img.png");
+        setPosition(0,50);
     }
 
     @Override
@@ -47,7 +49,7 @@ public class Dummy extends Entity implements Animated,Moveable{
 
     @Override
     public void move(Input input) {
-        System.out.println("Dummy");
+       // System.out.println("Dummy");
     }
 
     @Override
